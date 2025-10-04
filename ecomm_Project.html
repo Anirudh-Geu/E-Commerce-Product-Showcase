@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Product Showcase - Anirudh Choudhary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 25px 50px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            animation: slideDown 0.8s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand h1 {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .brand-subtitle {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .creator-info {
+            text-align: right;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .creator-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .student-id {
+            font-size: 0.85em;
+            opacity: 0.9;
+        }
+
+        .edunet-badge {
+            font-size: 0.8em;
+            opacity: 0.95;
+            margin-top: 3px;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        #cartCount {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h2 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.5), 2px 2px 10px rgba(0, 0, 0, 0.3); }
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.95;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            padding: 30px;
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 30px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+            z-index: 0;
+        }
+
+        .filter-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-btn:hover {
+            color: white;
+            border-color: #764ba2;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            border-radius: 50px;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            border-color: #764ba2;
+        }
+
+        /* Products Grid */
+        .products-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #667eea;
+            z-index: 2;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .product-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .product-category {
+            color: #667eea;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .product-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .product-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .product-price {
+            font-size: 1.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .view-btn {
+            padding: 10px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlide 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 30px 30px 0 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            font-size: 2em;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .modal-image {
+            font-size: 8em;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .modal-category {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-price {
+            font-size: 3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            font-size: 1.1em;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .modal-features {
+            margin-bottom: 30px;
+        }
+
+        .modal-features h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .modal-features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-features li {
+            padding: 10px 0;
+            color: #666;
+            font-size: 1.05em;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-features li::before {
+            content: '✓ ';
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Cart Modal */
+        #cartModal .modal-body {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .cart-item-name {
+            font-weight: bold;
+        }
+
+        .cart-item-price {
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .cart-total {
+            text-align: right;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #667eea;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .cart-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #ff5252;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Checkout Modal */
+        #checkoutModal .modal-body {
+            padding: 20px;
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .checkout-form input,
+        .checkout-form textarea,
+        .checkout-form select {
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .checkout-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .footer-text {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .internship-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .internship-info p {
+            margin: 5px 0;
+            font-size: 1.05em;
+        }
+
+        /* Responsive */ 
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2em;
+            }
+
+            .brand h1 {
+                font-size: 1.5em;
+            }
+
+            .creator-name {
+                font-size: 1.1em;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+            }
+
+            .modal-content {
+                margin: 10px;
+            }
+
+            .header-content {
+                justify-content: center;
+            }
+
+            .cart-icon {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="brand">
+                <h1>🛍️ Premium Showcase</h1>
+                <p class="brand-subtitle">Elevating Small Business Products</p>
+            </div>
+            <div class="creator-info">
+                <div class="creator-name">ANIRUDH CHOUDHARY</div>
+                <div class="student-id">Student ID: STU68652323e0aeb1751458594</div>
+                <div class="edunet-badge">📚 Edunet Foundation - AICTE Internship</div>
+            </div>
+            <div class="cart-icon" onclick="openCart()">
+                🛒
+                <span id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h2>Discover Premium Products</h2>
+        <p>An elegant, interactive showcase designed for small businesses to highlight their offerings with professional style - A Front End Web Development Project</p>
+    </div>
+
+    <div class="filter-section">
+        <div class="filter-controls">
+            <button class="filter-btn active" onclick="filterProducts('all')"><span>All Products</span></button>
+            <button class="filter-btn" onclick="filterProducts('electronics')"><span>Electronics</span></button>
+            <button class="filter-btn" onclick="filterProducts('fashion')"><span>Fashion</span></button>
+            <button class="filter-btn" onclick="filterProducts('home')"><span>Home & Living</span></button>
+            <button class="filter-btn" onclick="filterProducts('sports')"><span>Sports</span></button>
+            <input type="text" class="search-box" placeholder="🔍 Search products..." oninput="searchProducts(this.value)">
+        </div>
+    </div>
+
+    <div class="products-container">
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeProductModal()">×</button>
+                <div class="modal-image" id="modalImage"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-category" id="modalCategory"></p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-price" id="modalPrice"></div>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-features">
+                    <h3>Key Features</h3>
+                    <ul id="modalFeatures"></ul>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-btn btn-primary" onclick="addToCartFromModal()">🛒 Add to Cart</button>
+                    <button class="modal-btn btn-secondary" onclick="buyNowFromModal()">⚡ Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeCart()">×</button>
+                <h2 class="modal-title">Shopping Cart</h2>
+            </div>
+            <div class="modal-body">
+                <div id="cartItems"></div>
+                <div class="cart-total" id="cartTotal">Total: ₹0</div>
+                <div class="cart-actions">
+                    <button class="cart-btn btn-clear" onclick="clearCart()">Clear Cart</button>
+                    <button class="cart-btn btn-buy" onclick="buyNowFromCart()">Buy Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeCheckout()">×</button>
+                <h2 class="modal-title">Checkout</h2>
+            </div>
+            <div class="modal-body">
+                <form class="checkout-form" id="checkoutForm">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                    <input type="text" placeholder="Address Line 1" required>
+                    <input type="text" placeholder="Address Line 2" >
+                    <input type="text" placeholder="City" required>
+                    <input type="text" placeholder="State" required>
+                    <input type="text" placeholder="ZIP Code" required>
+                    <select required>
+                        <option value="">Select Payment Method</option>
+                        <option value="card">Credit/Debit Card</option>
+                        <option value="cod">Cash on Delivery</option>
+                        <option value="upi">UPI</option>
+                    </select>
+                    <button type="submit" class="submit-btn">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Internship Project Information</h3>
+            <p class="footer-text">This E-Commerce Product Showcase is developed as part of the Edunet Foundation - AICTE Internship on Front End Web Development. The project demonstrates modern web development skills including interactive filtering, responsive design, and dynamic product showcasing for small businesses.</p>
+            <div class="internship-info">
+                <p><strong>Developed By:</strong> Anirudh Choudhary</p>
+                <p><strong>Student ID:</strong> STU68652323e0aeb1751458594</p>
+                <p><strong>Internship ID:</strong> INTERNSHIP_1752226721687b0ba1e54a13353</p>
+                <p><strong>Program:</strong> Edunet Foundation - AICTE Internship</p>
+                <p><strong>Duration:</strong> 21st August 2025 to 2nd October 2025</p>
+                <p><strong>Project:</strong> Front End Web Development - E-Commerce Product Showcase</p>
+                <p style="margin-top: 15px; font-size: 0.9em; opacity: 0.95;">Leveraging the SkillsBuild Program on Front End Web Development</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        var products = [
+            // ELECTRONICS (13 products)
+            {
+                id: 1,
+                name: 'Wireless Headphones',
+                category: 'electronics',
+                price: 2999,
+                icon: '🎧',
+                description: 'Premium wireless headphones with noise cancellation and exceptional sound quality. Perfect for music lovers and professionals.',
+                features: ['Active Noise Cancellation', '40 Hour Battery Life', 'Premium Sound Quality', 'Comfortable Design', 'Bluetooth 5.0', 'Built-in Microphone'],
+                badge: 'Trending'
+            },
+            {
+                id: 2,
+                name: 'Smart Watch',
+                category: 'electronics',
+                price: 4499,
+                icon: '⌚',
+                description: 'Feature-rich smartwatch with fitness tracking, heart rate monitor, and smartphone connectivity.',
+                features: ['Heart Rate Monitor', 'GPS Tracking', 'Water Resistant', 'Sleep Tracking', '7 Days Battery', 'Multiple Sports Modes'],
+                badge: 'New'
+            },
+            {
+                id: 9,
+                name: 'Bluetooth Speaker',
+                category: 'electronics',
+                price: 1999,
+                icon: '🔊',
+                description: 'Portable Bluetooth speaker with powerful sound and long battery life. Take your music anywhere.',
+                features: ['360° Sound', 'Waterproof', '20 Hour Battery', 'Deep Bass', 'Wireless Connectivity', 'Compact Design'],
+                badge: 'Trending'
+            },
+            {
+                id: 13,
+                name: 'Wireless Mouse',
+                category: 'electronics',
+                price: 899,
+                icon: '🖱️',
+                description: 'Ergonomic wireless mouse with precision tracking. Perfect for work and gaming.',
+                features: ['Ergonomic Design', '2.4GHz Wireless', 'Rechargeable Battery', 'Adjustable DPI', 'Silent Clicks', '6 Months Battery'],
+                badge: 'Sale'
+            },
+            {
+                id: 14,
+                name: 'Power Bank',
+                category: 'electronics',
+                price: 1499,
+                icon: '🔋',
+                description: 'High-capacity power bank to keep your devices charged on the go.',
+                features: ['20000mAh Capacity', 'Fast Charging', 'Dual USB Ports', 'LED Display', 'Compact Design', 'Multiple Safety Features'],
+                badge: 'Popular'
+            },
+            {
+                id: 15,
+                name: 'USB Hub',
+                category: 'electronics',
+                price: 799,
+                icon: '🔌',
+                description: 'Multi-port USB hub for connecting multiple devices simultaneously.',
+                features: ['7 USB Ports', 'High Speed Data Transfer', 'LED Indicators', 'Plug and Play', 'Compatible with All Devices', 'Compact Design'],
+                badge: 'New'
+            },
+            {
+                id: 16,
+                name: 'Webcam HD',
+                category: 'electronics',
+                price: 2499,
+                icon: '📹',
+                description: 'HD webcam with crystal clear video quality for video calls and streaming.',
+                features: ['1080p HD Video', 'Built-in Microphone', 'Auto Focus', 'Wide Angle Lens', 'Plug and Play', 'Tripod Compatible'],
+                badge: 'Trending'
+            },
+            {
+                id: 17,
+                name: 'Gaming Keyboard',
+                category: 'electronics',
+                price: 3499,
+                icon: '⌨️',
+                description: 'Mechanical gaming keyboard with RGB lighting and programmable keys.',
+                features: ['Mechanical Switches', 'RGB Backlighting', 'Programmable Keys', 'Anti-Ghosting', 'Wrist Rest', 'Durable Build'],
+                badge: 'Hot'
+            },
+            {
+                id: 18,
+                name: 'Portable SSD',
+                category: 'electronics',
+                price: 5999,
+                icon: '💾',
+                description: 'High-speed portable SSD for fast data storage and transfer.',
+                features: ['512GB Storage', 'USB 3.1 Gen 2', 'Read Speed 540MB/s', 'Shock Resistant', 'Compact Size', 'Password Protection'],
+                badge: 'New'
+            },
+            {
+                id: 19,
+                name: 'Ring Light',
+                category: 'electronics',
+                price: 1899,
+                icon: '💍',
+                description: 'Professional ring light for photography, videos, and makeup application.',
+                features: ['Adjustable Brightness', '3 Color Modes', '10 Inch Diameter', 'Phone Holder', 'Tripod Stand', 'USB Powered'],
+                badge: 'Popular'
+            },
+            {
+                id: 20,
+                name: 'Smart Doorbell',
+                category: 'electronics',
+                price: 6999,
+                icon: '🔔',
+                description: 'Smart video doorbell with motion detection and two-way audio.',
+                features: ['HD Video', 'Night Vision', 'Motion Detection', 'Two-Way Audio', 'Cloud Storage', 'Mobile App Control'],
+                badge: 'New'
+            },
+            {
+                id: 21,
+                name: 'Wireless Charger',
+                category: 'electronics',
+                price: 1299,
+                icon: '⚡',
+                description: 'Fast wireless charging pad compatible with all Qi-enabled devices.',
+                features: ['15W Fast Charging', 'Qi Compatible', 'LED Indicator', 'Overcharge Protection', 'Slim Design', 'Non-Slip Surface'],
+                badge: 'Sale'
+            },
+            {
+                id: 22,
+                name: 'Drone Camera',
+                category: 'electronics',
+                price: 12999,
+                icon: '🚁',
+                description: 'Advanced drone with 4K camera for aerial photography and videography.',
+                features: ['4K Camera', 'GPS Auto Return', '25 Min Flight Time', 'Follow Me Mode', 'Altitude Hold', 'Mobile App Control'],
+                badge: 'Hot'
+            },
+
+            // FASHION (12 products)
+            {
+                id: 3,
+                name: 'Designer Jacket',
+                category: 'fashion',
+                price: 3599,
+                icon: '🧥',
+                description: 'Stylish designer jacket made from premium materials. Perfect for all weather conditions.',
+                features: ['Premium Fabric', 'Water Resistant', 'Multiple Pockets', 'Adjustable Fit', 'Warm Lining', 'Modern Design'],
+                badge: 'Hot'
+            },
+            {
+                id: 6,
+                name: 'Laptop Backpack',
+                category: 'fashion',
+                price: 1299,
+                icon: '🎒',
+                description: 'Spacious and durable laptop backpack with multiple compartments and ergonomic design.',
+                features: ['Laptop Compartment', 'Water Resistant', 'USB Charging Port', 'Anti-Theft Pocket', 'Padded Straps', 'Multiple Pockets'],
+                badge: 'New'
+            },
+            {
+                id: 10,
+                name: 'Sunglasses',
+                category: 'fashion',
+                price: 1599,
+                icon: '🕶️',
+                description: 'Stylish sunglasses with UV protection and polarized lenses. Fashion meets function.',
+                features: ['UV400 Protection', 'Polarized Lenses', 'Lightweight Frame', 'Scratch Resistant', 'Multiple Colors', 'Premium Quality'],
+                badge: 'Hot'
+            },
+            {
+                id: 23,
+                name: 'Leather Wallet',
+                category: 'fashion',
+                price: 999,
+                icon: '👛',
+                description: 'Genuine leather wallet with RFID protection and multiple card slots.',
+                features: ['Genuine Leather', 'RFID Protection', '8 Card Slots', 'Coin Pocket', 'Bill Compartment', 'Slim Design'],
+                badge: 'Popular'
+            },
+            {
+                id: 24,
+                name: 'Casual Sneakers',
+                category: 'fashion',
+                price: 2299,
+                icon: '👟',
+                description: 'Comfortable casual sneakers perfect for everyday wear. Style meets comfort.',
+                features: ['Breathable Material', 'Cushioned Insole', 'Flexible Sole', 'Lightweight', 'Multiple Colors', 'Durable Construction'],
+                badge: 'Trending'
+            },
+            {
+                id: 25,
+                name: 'Wrist Watch',
+                category: 'fashion',
+                price: 3299,
+                icon: '⌚',
+                description: 'Classic analog wrist watch with premium leather strap.',
+                features: ['Stainless Steel Case', 'Leather Strap', 'Water Resistant', 'Scratch-proof Glass', 'Elegant Design', 'Japanese Movement'],
+                badge: 'New'
+            },
+            {
+                id: 26,
+                name: 'Designer Handbag',
+                category: 'fashion',
+                price: 4599,
+                icon: '👜',
+                description: 'Elegant designer handbag with spacious interior and premium finish.',
+                features: ['Premium Material', 'Spacious Interior', 'Multiple Pockets', 'Adjustable Strap', 'Gold Hardware', 'Dust Bag Included'],
+                badge: 'Hot'
+            },
+            {
+                id: 27,
+                name: 'Baseball Cap',
+                category: 'fashion',
+                price: 599,
+                icon: '🧢',
+                description: 'Stylish baseball cap with adjustable strap. Perfect for casual outings.',
+                features: ['Cotton Material', 'Adjustable Strap', 'Curved Brim', 'Breathable', 'Multiple Colors', 'Embroidered Logo'],
+                badge: 'Sale'
+            },
+            {
+                id: 28,
+                name: 'Denim Jeans',
+                category: 'fashion',
+                price: 1899,
+                icon: '👖',
+                description: 'Classic fit denim jeans made from premium quality fabric.',
+                features: ['Premium Denim', 'Comfortable Fit', 'Multiple Sizes', 'Fade Resistant', '5 Pocket Design', 'Durable Stitching'],
+                badge: 'Popular'
+            },
+            {
+                id: 29,
+                name: 'Formal Shirt',
+                category: 'fashion',
+                price: 1499,
+                icon: '👔',
+                description: 'Professional formal shirt perfect for office wear and formal occasions.',
+                features: ['Cotton Blend', 'Wrinkle Free', 'Multiple Colors', 'Slim Fit', 'Button Down Collar', 'Easy Care'],
+                badge: 'New'
+            },
+            {
+                id: 30,
+                name: 'Sports Socks Pack',
+                category: 'fashion',
+                price: 499,
+                icon: '🧦',
+                description: 'Pack of 5 comfortable sports socks with moisture-wicking technology.',
+                features: ['Moisture Wicking', 'Cushioned Sole', 'Arch Support', 'Breathable', 'Pack of 5', 'Machine Washable'],
+                badge: 'Sale'
+            },
+            {
+                id: 31,
+                name: 'Leather Belt',
+                category: 'fashion',
+                price: 899,
+                icon: '🎗️',
+                description: 'Classic leather belt with durable buckle. Perfect for formal and casual wear.',
+                features: ['Genuine Leather', 'Metal Buckle', 'Adjustable Size', 'Multiple Colors', 'Scratch Resistant', 'Gift Box Included'],
+                badge: 'Popular'
+            },
+
+            // HOME & LIVING (13 products)
+            {
+                id: 5,
+                name: 'Coffee Maker',
+                category: 'home',
+                price: 1899,
+                icon: '☕',
+                description: 'Automatic coffee maker that brews perfect coffee every time. Start your mornings right.',
+                features: ['One-Touch Operation', 'Keep Warm Function', '12 Cup Capacity', 'Auto Shut-off', 'Easy to Clean', 'Programmable Timer'],
+                badge: 'Popular'
+            },
+            {
+                id: 8,
+                name: 'LED Desk Lamp',
+                category: 'home',
+                price: 1499,
+                icon: '💡',
+                description: 'Modern LED desk lamp with adjustable brightness and color temperature for optimal lighting.',
+                features: ['Touch Control', 'Adjustable Brightness', 'Color Temperature', 'USB Charging Port', 'Energy Efficient', 'Flexible Arm'],
+                badge: 'Sale'
+            },
+            {
+                id: 12,
+                name: 'Wall Clock',
+                category: 'home',
+                price: 799,
+                icon: '🕐',
+                description: 'Elegant wall clock with silent movement. Adds style to any room.',
+                features: ['Silent Mechanism', 'Modern Design', 'Easy to Read', 'Battery Operated', 'Multiple Colors', 'Quality Build'],
+                badge: 'New'
+            },
+            {
+                id: 32,
+                name: 'Air Purifier',
+                category: 'home',
+                price: 6999,
+                icon: '🌬️',
+                description: 'Advanced air purifier with HEPA filter for clean and fresh indoor air.',
+                features: ['HEPA Filter', '3 Speed Settings', 'Air Quality Indicator', 'Timer Function', 'Quiet Operation', 'Coverage 300 sq ft'],
+                badge: 'Hot'
+            },
+            {
+                id: 33,
+                name: 'Bedsheet Set',
+                category: 'home',
+                price: 1299,
+                icon: '🛏️',
+                description: 'Premium cotton bedsheet set with pillow covers. Soft and comfortable.',
+                features: ['100% Cotton', 'Double Bed Size', '2 Pillow Covers', 'Fade Resistant', 'Machine Washable', 'Multiple Designs'],
+                badge: 'Popular'
+            },
+            {
+                id: 34,
+                name: 'Table Lamp',
+                category: 'home',
+                price: 999,
+                icon: '🕯️',
+                description: 'Decorative table lamp with warm lighting perfect for bedrooms and living rooms.',
+                features: ['Warm Light', 'Decorative Design', 'Energy Efficient', 'Sturdy Base', 'Easy Switch', 'Fabric Shade'],
+                badge: 'New'
+            },
+            {
+                id: 35,
+                name: 'Curtains Set',
+                category: 'home',
+                price: 1799,
+                icon: '🪟',
+                description: 'Elegant curtains with blackout feature. Adds privacy and style to your space.',
+                features: ['Blackout Feature', 'Premium Fabric', 'Easy to Install', 'Machine Washable', 'Multiple Colors', '2 Panel Set'],
+                badge: 'Sale'
+            },
+            {
+                id: 36,
+                name: 'Dinner Set',
+                category: 'home',
+                price: 2499,
+                icon: '🍽️',
+                description: 'Complete dinner set for 6 people. Perfect for family meals and entertaining.',
+                features: ['24 Piece Set', 'Ceramic Material', 'Microwave Safe', 'Dishwasher Safe', 'Elegant Design', 'Serves 6 People'],
+                badge: 'Popular'
+            },
+            {
+                id: 37,
+                name: 'Vacuum Cleaner',
+                category: 'home',
+                price: 4999,
+                icon: '🧹',
+                description: 'Powerful vacuum cleaner with multiple attachments for complete home cleaning.',
+                features: ['1200W Power', 'HEPA Filter', 'Multiple Attachments', 'Large Dust Capacity', 'Cord Winder', 'Lightweight'],
+                badge: 'Trending'
+            },
+            {
+                id: 38,
+                name: 'Storage Baskets',
+                category: 'home',
+                price: 899,
+                icon: '🧺',
+                description: 'Set of 3 woven storage baskets perfect for organizing your home.',
+                features: ['Set of 3 Sizes', 'Handwoven', 'Durable Material', 'Handles Included', 'Multi-Purpose', 'Easy to Clean'],
+                badge: 'New'
+            },
+            {
+                id: 39,
+                name: 'Cushion Covers Set',
+                category: 'home',
+                price: 699,
+                icon: '🛋️',
+                description: 'Set of 5 decorative cushion covers to refresh your living space.',
+                features: ['Pack of 5', 'Premium Fabric', 'Hidden Zipper', 'Machine Washable', 'Multiple Designs', '16x16 inch'],
+                badge: 'Sale'
+            },
+            {
+                id: 40,
+                name: 'Electric Kettle',
+                category: 'home',
+                price: 1199,
+                icon: '🫖',
+                description: 'Fast-heating electric kettle with auto shut-off feature.',
+                features: ['1.8L Capacity', 'Rapid Boil', 'Auto Shut-off', 'Cordless Design', 'Stainless Steel', 'Easy Pour Spout'],
+                badge: 'Popular'
+            },
+            {
+                id: 41,
+                name: 'Photo Frames Set',
+                category: 'home',
+                price: 799,
+                icon: '🖼️',
+                description: 'Set of decorative photo frames to display your precious memories.',
+                features: ['Set of 6 Frames', 'Multiple Sizes', 'Wall Mountable', 'Table Stand Included', 'Glass Front', 'Modern Design'],
+                badge: 'New'
+            },
+            {
+                id: 42,
+                name: 'Aroma Diffuser',
+                category: 'home',
+                price: 1599,
+                icon: '🕯️',
+                description: 'Ultrasonic aroma diffuser with LED lights for relaxation and aromatherapy.',
+                features: ['300ml Capacity', 'LED Color Changing', 'Auto Shut-off', 'Whisper Quiet', 'Timer Settings', '8 Hour Runtime'],
+                badge: 'Hot'
+            },
+
+            // SPORTS (12 products)
+            {
+                id: 4,
+                name: 'Running Shoes',
+                category: 'sports',
+                price: 2799,
+                icon: '👟',
+                description: 'High-performance running shoes designed for comfort and speed. Ideal for athletes and fitness enthusiasts.',
+                features: ['Breathable Mesh', 'Cushioned Sole', 'Anti-Slip Grip', 'Lightweight Design', 'Arch Support', 'Durable Build'],
+                badge: 'Sale'
+            },
+            {
+                id: 7,
+                name: 'Yoga Mat',
+                category: 'sports',
+                price: 899,
+                icon: '🧘',
+                description: 'Premium yoga mat with excellent grip and cushioning. Perfect for all yoga practices.',
+                features: ['Non-Slip Surface', 'Extra Thick Padding', 'Eco-Friendly Material', 'Easy to Clean', 'Carry Strap Included', 'Durable'],
+                badge: 'Eco'
+            },
+            {
+                id: 11,
+                name: 'Dumbbell Set',
+                category: 'sports',
+                price: 3299,
+                icon: '🏋️',
+                description: 'Professional dumbbell set for home workouts. Build strength and muscle at home.',
+                features: ['Adjustable Weight', 'Anti-Slip Grip', 'Durable Coating', 'Storage Rack', 'Multiple Weight Options', 'Professional Grade'],
+                badge: 'Popular'
+            },
+            {
+                id: 43,
+                name: 'Cricket Bat',
+                category: 'sports',
+                price: 2499,
+                icon: '🏏',
+                description: 'Professional cricket bat made from premium willow. Perfect for serious players.',
+                features: ['Premium Willow', 'Full Size', 'Lightweight', 'Sweet Spot', 'Comfortable Grip', 'Protective Cover'],
+                badge: 'Hot'
+            },
+            {
+                id: 44,
+                name: 'Football',
+                category: 'sports',
+                price: 899,
+                icon: '⚽',
+                description: 'High-quality football with durable stitching. Perfect for matches and practice.',
+                features: ['Size 5', 'Durable Stitching', 'Waterproof', 'Excellent Grip', 'Air Retention', 'Suitable for All Surfaces'],
+                badge: 'Popular'
+            },
+            {
+                id: 45,
+                name: 'Badminton Racket',
+                category: 'sports',
+                price: 1599,
+                icon: '🏸',
+                description: 'Lightweight badminton racket for improved performance and control.',
+                features: ['Lightweight Frame', 'High Tension Strings', 'Comfortable Grip', 'Carry Cover', 'Balanced Design', 'Durable Build'],
+                badge: 'New'
+            },
+            {
+                id: 46,
+                name: 'Gym Gloves',
+                category: 'sports',
+                price: 599,
+                icon: '🧤',
+                description: 'Padded gym gloves for better grip and hand protection during workouts.',
+                features: ['Padded Palm', 'Breathable Material', 'Wrist Support', 'Anti-Slip', 'Multiple Sizes', 'Durable Stitching'],
+                badge: 'Sale'
+            },
+            {
+                id: 47,
+                name: 'Resistance Bands',
+                category: 'sports',
+                price: 799,
+                icon: '🎯',
+                description: 'Set of 5 resistance bands for strength training and flexibility exercises.',
+                features: ['5 Resistance Levels', 'Durable Latex', 'Portable', 'Exercise Guide', 'Ankle Straps Included', 'Carry Bag'],
+                badge: 'Trending'
+            },
+            {
+                id: 48,
+                name: 'Skipping Rope',
+                category: 'sports',
+                price: 399,
+                icon: '🪢',
+                description: 'Adjustable speed skipping rope perfect for cardio workouts.',
+                features: ['Adjustable Length', 'Ball Bearings', 'Comfortable Handles', 'Tangle-Free', 'Speed Rope', 'Lightweight'],
+                badge: 'Sale'
+            },
+            {
+                id: 49,
+                name: 'Sports Water Bottle',
+                category: 'sports',
+                price: 499,
+                icon: '🍶',
+                description: 'Leak-proof sports water bottle with easy-grip design. Stay hydrated during workouts.',
+                features: ['1 Liter Capacity', 'Leak-Proof', 'BPA Free', 'Easy Grip', 'Wide Mouth', 'Dishwasher Safe'],
+                badge: 'Popular'
+            },
+            {
+                id: 50,
+                name: 'Gym Bag',
+                category: 'sports',
+                price: 1299,
+                icon: '🎒',
+                description: 'Spacious gym bag with separate shoe compartment and multiple pockets.',
+                features: ['Large Capacity', 'Shoe Compartment', 'Water Bottle Holder', 'Adjustable Strap', 'Durable Material', 'Multiple Pockets'],
+                badge: 'New'
+            },
+            {
+                id: 51,
+                name: 'Tennis Balls Set',
+                category: 'sports',
+                price: 599,
+                icon: '🎾',
+                description: 'Pack of 6 professional tennis balls for practice and matches.',
+                features: ['Pack of 6', 'Professional Grade', 'High Visibility', 'Durable Felt', 'Consistent Bounce', 'Pressurized'],
+                badge: 'Sale'
+            }
+        ];
+
+        var currentFilter = 'all';
+        var currentSearch = '';
+        var cart = [];
+        var currentProductId = null;
+
+        function displayProducts() {
+            var grid = document.getElementById('productsGrid');
+            var filteredProducts = products.filter(function(product) {
+                var matchesFilter = currentFilter === 'all' || product.category === currentFilter;
+                var matchesSearch = currentSearch === '' || 
+                    product.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    product.category.toLowerCase().includes(currentSearch.toLowerCase());
+                return matchesFilter && matchesSearch;
+            });
+
+            grid.innerHTML = '';
+            
+            filteredProducts.forEach(function(product, index) {
+                var card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.animationDelay = (index * 0.1) + 's';
+                card.onclick = function() { openProductModal(product.id); };
+                
+                card.innerHTML = 
+                    '<div class="product-image">' +
+                        '<div class="product-badge">' + product.badge + '</div>' +
+                        product.icon +
+                    '</div>' +
+                    '<div class="product-content">' +
+                        '<div class="product-category">' + product.category + '</div>' +
+                        '<h3 class="product-title">' + product.name + '</h3>' +
+                        '<p class="product-description">' + product.description.substring(0, 80) + '...</p>' +
+                        '<div class="product-footer">' +
+                            '<span class="product-price">₹' + product.price + '</span>' +
+                            '<button class="view-btn">View Details</button>' +
+                        '</div>' +
+                    '</div>';
+                
+                grid.appendChild(card);
+            });
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #333; font-size: 1.5em; background: white; border-radius: 10px;">No products found matching your criteria</div>';
+            }
+        }
+
+        function filterProducts(category) {
+            currentFilter = category;
+            
+            var buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + category + "'")) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            displayProducts();
+        }
+
+        function searchProducts(query) {
+            currentSearch = query;
+            displayProducts();
+        }
+
+        function openProductModal(productId) {
+            var product = products.find(function(p) { return p.id === productId; });
+            if (!product) return;
+            currentProductId = productId;
+
+            document.getElementById('modalImage').textContent = product.icon;
+            document.getElementById('modalTitle').textContent = product.name;
+            document.getElementById('modalCategory').textContent = product.category.toUpperCase();
+
+            document.getElementById('modalPrice').textContent = '₹' + product.price;
+            document.getElementById('modalDescription').textContent = product.description;
+
+            var featuresList = document.getElementById('modalFeatures');
+            featuresList.innerHTML = '';
+            product.features.forEach(function(feature) {
+                var li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+
+            document.getElementById('productModal').classList.add('active');
+        }
+
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+        }
+
+        function addToCartFromModal() {
+            var product = products.find(function(p) { return p.id === currentProductId; });
+            if (product) {
+                cart.push(product);
+                updateCartCount();
+                alert('Added to cart!');
+            }
+            closeProductModal();
+        }
+
+        function buyNowFromModal() {
+            var product = products.find(function(p) { return p.id === currentProductId; });
+            if (product) {
+                cart = [product]; // Replace cart with this single item
+                updateCartCount();
+                openCheckout();
+            }
+            closeProductModal();
+        }
+
+        function openCart() {
+            displayCartItems();
+            document.getElementById('cartModal').classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+
+        function displayCartItems() {
+            var cartItemsDiv = document.getElementById('cartItems');
+            var total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cartTotal').textContent = 'Total: ₹' + total;
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p style="text-align: center; color: #666;">Your cart is empty</p>';
+                return;
+            }
+
+            cartItemsDiv.innerHTML = cart.map(function(item) {
+                return '<div class="cart-item">' +
+                    '<span class="cart-item-name">' + item.name + '</span>' +
+                    '<span class="cart-item-price">₹' + item.price + '</span>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartCount();
+            displayCartItems();
+            alert('Cart cleared!');
+        }
+
+        function buyNowFromCart() {
+            if (cart.length === 0) {
+                alert('Cart is empty!');
+                return;
+            }
+            openCheckout();
+            closeCart();
+        }
+
+        function openCheckout() {
+            displayCartItems(); // To update total if needed
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Order placed successfully! Thank you for your purchase.');
+            cart = [];
+            updateCartCount();
+            closeCheckout();
+        });
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        // Initial load
+        displayProducts();
+        updateCartCount();
+    </script>
+</body>
+</html>
